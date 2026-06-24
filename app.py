@@ -65,6 +65,18 @@ def index():
 def config():
     return jsonify({"url": SN_URL, "user": SN_USER})
 
+# ── Debug env (remove after fix) ─────────────────────────────────────────────
+@app.route("/debug-env")
+def debug_env():
+    return jsonify({
+        "SN_URL":  SN_URL,
+        "SN_USER": SN_USER,
+        "SN_PASS_LEN": len(SN_PASS),
+        "SN_PASS_FIRST3": SN_PASS[:3] if SN_PASS else "",
+        "SN_PASS_LAST3":  SN_PASS[-3:] if SN_PASS else "",
+        "GROQ_KEY_SET": bool(GROQ_KEY)
+    })
+
 # ── Test Connection ───────────────────────────────────────────────────────────
 @app.route("/test-connection")
 def test_connection():
